@@ -1,0 +1,62 @@
+import streamlit as st
+import math
+
+# Streamlit app title
+st.title("Scientific Calculator")
+
+# Input fields for user to enter numbers
+num1 = st.number_input("Enter first number", value=0.0)
+num2 = st.number_input("Enter second number (optional for some operations)", value=0.0)
+
+# Dropdown to choose the operation
+operation = st.selectbox("Choose an operation", [
+    "Addition", 
+    "Subtraction", 
+    "Multiplication", 
+    "Division", 
+    "Square Root", 
+    "Power", 
+    "Logarithm (Base 10)", 
+    "Sine", 
+    "Cosine", 
+    "Tangent"
+])
+
+# Function to perform the calculation
+def calculate(operation, num1, num2=None):
+    if operation == "Addition":
+        return num1 + num2
+    elif operation == "Subtraction":
+        return num1 - num2
+    elif operation == "Multiplication":
+        return num1 * num2
+    elif operation == "Division":
+        if num2 != 0:
+            return num1 / num2
+        else:
+            return "Error! Division by zero."
+    elif operation == "Square Root":
+        if num1 >= 0:
+            return math.sqrt(num1)
+        else:
+            return "Error! Negative number."
+    elif operation == "Power":
+        return math.pow(num1, num2)
+    elif operation == "Logarithm (Base 10)":
+        if num1 > 0:
+            return math.log10(num1)
+        else:
+            return "Error! Log of non-positive number."
+    elif operation == "Sine":
+        return math.sin(math.radians(num1))
+    elif operation == "Cosine":
+        return math.cos(math.radians(num1))
+    elif operation == "Tangent":
+        return math.tan(math.radians(num1))
+    else:
+        return "Invalid operation"
+
+# Button to perform the calculation
+if st.button("Calculate"):
+    result = calculate(operation, num1, num2)
+    st.write(f"Result: {result}")
